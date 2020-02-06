@@ -1,4 +1,3 @@
-
 #include <stdlib.h>
 #include <time.h>
 #include <stdio.h>
@@ -10,10 +9,11 @@
 int main(void)
 {
 	char a = 'a';
-
+	{
 	while (a <= 'z')
+	if (a != 'q' && a != 'e')
 		putchar(a++);
-	if (a != 'e' && a != 'q')
 	putchar('\n');
+	}
 	return (0);
 }
