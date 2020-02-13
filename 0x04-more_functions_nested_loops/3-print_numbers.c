@@ -1,7 +1,6 @@
 #include "holberton.h"
 /**
- * print_sign - this function will print a sign
- * @c: variable
+ * print_numbers - this function will print the numbers
  * Return: 0
  */
 void print_numbers(void)
