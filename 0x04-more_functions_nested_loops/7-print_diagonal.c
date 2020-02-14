@@ -1,6 +1,6 @@
 #include "holberton.h"
 /**
- * print_line - this function will print n times a '_'
+ * print_diagonal - this function will print a diagonal line
  * @n: variable
  * Return: Always 0
  */
