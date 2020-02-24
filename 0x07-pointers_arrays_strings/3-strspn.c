@@ -8,7 +8,6 @@
  */
 unsigned int _strspn(char *s, char *accept)
 {
-	unsigned int k = 0;
 	int v;
 	int p;
 
@@ -19,7 +18,8 @@ unsigned int _strspn(char *s, char *accept)
 			if (accept[p] == s[v])
 				break;
 		}
-		k = k + 1;
+		if (!accept[p])
+			break;
 	}
 	return (p);
 }
