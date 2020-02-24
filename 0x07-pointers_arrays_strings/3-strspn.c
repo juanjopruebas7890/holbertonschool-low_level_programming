@@ -17,9 +17,10 @@ unsigned int _strspn(char *s, char *accept)
 		for (p = 0; p < 5; p++)
 		{
 			if (accept[p] == s[v])
-				break;
+			{
+				k = k + 1;
+			}
 		}
-		k = k - 1;
 	}
 	return (p);
 }
