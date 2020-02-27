@@ -26,7 +26,7 @@ int pn(int i, int k)
 	}
 }
 /**
- * _is_prime_number - Is the variable
+ * is_prime_number - Is the variable
  * @n: Is the variable.
  * Return: 0
  */
