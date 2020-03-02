@@ -8,7 +8,7 @@
  */
 int main(int argc, char *argv[])
 {
-	int add, k;
+	int add = 0, k;
 
 	if (argc == 2)
 	{
