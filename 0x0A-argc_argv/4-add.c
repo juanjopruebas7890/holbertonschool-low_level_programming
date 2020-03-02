@@ -8,30 +8,25 @@
  */
 int main(int argc, char *argv[])
 {
-	int add = 0, k;
+	int add = 0, e, h;
 
-	if (argc == 2)
+	if (argc == 1)
 	{
 		printf("0\n");
-		return (1);
+		return (0);
 	}
-	for (k = 1; k < argc; k++)
+	for (e = 1; e < argc; e++)
 	{
-		if (atoi(argv[k]) < 0)
+		for (h = 0; argv[e][h] != '\0'; h++)
 		{
-			printf("0\n");
-			return (1);
+			if (argv[e][h] < '\0' || argv[e][h] > '9')
+			{
+				printf("Error\n");
+				return (1);
+				}
 		}
-		if (atoi(argv[k]))
-		{
-			add += atoi(argv[k]);
+		add += atoi(argv[e]);
 		}
-		else
-		{
-			printf("Error\n");
-			return (1);
-		}
-	}
 	printf("%d\n", add);
 	return (0);
 }
