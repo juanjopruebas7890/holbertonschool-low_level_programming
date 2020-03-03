@@ -1,31 +1,41 @@
-#include <stdlib.h>
 #include "holberton.h"
+#include <stdlib.h>
+
 /**
  * _strdup - Is the prototype.
  * @str: Is tha variable.
  * Return: 0
  */
+
 char *_strdup(char *str)
 {
-	int p, h;
+	int p;
+	int h;
 	char *r;
+
+	if (str == NULL)
+	{
+		return (NULL);
+	}
 
 	for (p = 0; str[p]; p++)
 	{
 	}
 
-	r = malloc(p * sizeof(str));
-	if (str == NULL)
+	p++;
+
+	r = malloc(sizeof(str) * p);
+
+	if (r == NULL)
 	{
 		return (NULL);
 	}
+
 	for (h = 0; h < p; h++)
 	{
-		r[h] = str[p];
+		r[h] = str[h];
 	}
-	if (p == 0)
-	{
-		return (NULL);
-	}
-	return (str);
+
+	return (r);
+	free(r);
 }
