@@ -31,15 +31,13 @@ char *str_concat(char *s1, char *s2)
 		return (NULL);
 	}
 
-	for (w = 0; s1[w]; w++)
+	for (w = 0; s1[w]; w++, m++)
 	{
 		f[m] = s1[w];
-		m++;
 	}
-	for (w = 0; s2[w]; w++)
+	for (w = 0; s2[w]; w++, m++)
 	{
 		f[m] = s2[w];
-		m++;
 	}
 	f[m] = '\0';
 	return (f);
