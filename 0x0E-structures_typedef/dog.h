@@ -4,6 +4,9 @@
 /**
  * struct dog - Is the new type
  * Return: On success 1.
+ * @name: variable.
+ * @age: Variable.
+ * @owner: variable.
  */
 typedef struct dog
 {
