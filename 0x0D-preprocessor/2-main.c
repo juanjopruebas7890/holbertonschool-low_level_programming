@@ -1,9 +1,9 @@
 #include <stdio.h>
 /**
- * _print_rev_recursion - Is the prototype.
- * @s: Is the variable we are working with.
+ * main - Is the prototype.
+ * Return: 0
  */
-int main ()
+int main(void)
 {
 	printf("%s\n", __FILE__);
 	return (0);
