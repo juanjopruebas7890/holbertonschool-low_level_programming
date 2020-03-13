@@ -23,7 +23,14 @@ void print_strings(const char *separator, const unsigned int n, ...)
 	for (i = 0; i < n; i++)
 	{
 		p = va_arg(lista, char *);
-		printf("%s", p);
+		if (p == NULL)
+		{
+			printf("(nil)");
+		}
+		else
+		{
+			printf("%s", p);
+		}
 		if (i < n - 1)
 		{
 			printf("%s", separator);
