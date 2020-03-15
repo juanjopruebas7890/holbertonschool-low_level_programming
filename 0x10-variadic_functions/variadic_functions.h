@@ -1,6 +1,6 @@
 #ifndef VARIADIC_FUNCTIONS_H_FILE
 #define VARIADIC_FUNCTIONS_H_FILE
-
+#include <stdarg.h>
 /**
  * struct est- Numbers structure
  * @c: It's a variable char
