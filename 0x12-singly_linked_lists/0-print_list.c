@@ -1,5 +1,4 @@
 #include "lists.h"
-#include <string.h>
 
 /**
  * print_list - Will print the lists that are passed to it.
@@ -20,7 +19,7 @@ size_t print_list(const list_t *h)
 		{
 			printf("[%d] %s\n", h->str);
 		}
-		h->next;
+		h = h->next;
 	}
 	return (i);
 }
