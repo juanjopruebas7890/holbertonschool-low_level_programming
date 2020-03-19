@@ -1,5 +1,5 @@
 #include "lists.h"
-#include <strings.h>
+#include <string.h>
 
 /**
  * print_list - Will print the lists that are passed to it.
