@@ -1,8 +1,9 @@
 #include "lists.h"
 /**
- * list_len - Will return th number of elements in the list.
- * @h: variable.
- * Return: i
+ * add_node - Will add a node at the begginging of the list.
+ * @head: variable.
+ * @str: Variable.
+ * Return: head double pointer
  */
 list_t *add_node(list_t **head, const char *str)
 {
@@ -13,13 +14,14 @@ list_t *add_node(list_t **head, const char *str)
 	if (node == NULL)
 	{
 		return (NULL);
-       	}
+	}
 
-       	node->str = strdup(str);
-       	for (i = 0; str[i]; i++)
-       	node->len = i;
-       	node->next = (*head);
-       	(*head) = node;
+	node->str = strdup(str);
+	for (i = 0; str[i]; i++, str++)
+		;
+	node->len = i;
+	node->next = (*head);
+	(*head) = node;
 
 	return (*head);
 }
