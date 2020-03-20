@@ -1,8 +1,8 @@
 #include "lists.h"
 /**
- * print_list - Will print the lists that are passed to it.
+ * list_len - Will return th number of elements in the list.
  * @h: variable.
- * Return: 0
+ * Return: i
  */
 size_t list_len(const list_t *h)
 {
