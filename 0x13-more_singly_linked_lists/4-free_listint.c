@@ -1,6 +1,6 @@
 #include "lists.h"
 /**
- * free_list - Will add a node at the end of the list.
+ * free_listint - Will free the code.
  * @head: variable.
  * Return: head.
  */
