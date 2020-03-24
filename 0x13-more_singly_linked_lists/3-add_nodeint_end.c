@@ -1,14 +1,14 @@
 #include "lists.h"
 /**
- * add_node_end - Will add a node at the end of the list.
+ * add_nodeint_end - Will add a node at the end of the list.
  * @head: variable.
- * @str: Variable.
+ * @n: Variable
  * Return: head.
  */
 listint_t *add_nodeint_end(listint_t **head, const int n)
 {
 	listint_t *node;
-	listint_t *t;
+	listint_t *t = *head;
 
 	node = malloc(sizeof(listint_t));
 	if (node == NULL)
@@ -18,7 +18,7 @@ listint_t *add_nodeint_end(listint_t **head, const int n)
 	node->n = n;
 	node->next = NULL;
 
-	if (*head == 0)
+	if (t == NULL)
 	{
 		*head = node;
 	}
