@@ -11,25 +11,25 @@ int delete_nodeint_at_index(listint_t **head, unsigned int index)
 	unsigned int p = 0;
 
 	c = *head;
-
-	if (c == NULL)
+	if (*head == NULL)
 	{
 		return (-1);
 	}
 
 	if (index == 0)
 	{
-		c = c->next;
+		*head = (*head)->next;
 		free(c);
 		return (1);
 	}
-	while (c)
+	else
 	{
 		for (p = 0; c != NULL; p++)
 		{
 			if (p == index - 1)
 			{
-				temporal = c->next;
+				temporal = c;
+				temporal = temporal->next;
 				c->next = temporal->next;
 				free(temporal);
 				return (1);
