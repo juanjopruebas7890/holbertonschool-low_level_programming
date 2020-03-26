@@ -6,7 +6,7 @@
  */
 void print_binary(unsigned long int n)
 {
-	unsigned int i = n;
+	unsigned int i;
 	int y;
 
 	if (n == 0)
@@ -15,7 +15,7 @@ void print_binary(unsigned long int n)
 		return;
 	}
 
-	for (y = 0; (i >>= 1) > 0; y++)
+	for (i = n, y = 0; (i >>= 1) > 0; y++)
 		;
 
 	for (; y >= 0; y--)
