@@ -13,7 +13,7 @@ int main(void)
 			for (r = i; r <= '9'; r++)
 				for (w = j; w <= '9'; w++)
 				{
-					if (!((j == d) && (i == c)))
+					if (!((j == w) && (i == r)))
 					{
 						putchar(i);
 						putchar(j);
