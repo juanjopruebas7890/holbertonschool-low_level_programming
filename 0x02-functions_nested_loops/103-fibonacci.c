@@ -21,6 +21,6 @@ int main(void)
 			z += r;
 		}
 	}
-	printf("%lu\n", q);
+	printf("%lu\n", z);
 	return (0);
 }
