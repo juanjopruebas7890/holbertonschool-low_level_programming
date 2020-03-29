@@ -18,7 +18,7 @@ int main(void)
 		j = r;
 		if (r % 2 == 0 && r < 4000000)
 		{
-			z = z + r;
+			z += r;
 		}
 	}
 	printf("%lu\n", q);
