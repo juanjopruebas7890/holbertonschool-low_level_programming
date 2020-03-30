@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
 
 	for (i = 0; i < (atoi(argv[1]) - 1); i++, r++)
 	{
-		printf("%02x\n", *r);
+		printf("%02x ", *r);
 	}
 	printf("%02x\n", *r);
 
