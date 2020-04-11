@@ -22,6 +22,7 @@ char *infinite_add(char *n1, char *n2, char *r, int size_r)
 	j = j - 1;
 	while (i >= 0 || j >= 0)
 	{
+		d1 = d2 = 0;
 		if (i >= 0)
 			d1 = n1[i--] - '0';
 		if (j >= 0)
