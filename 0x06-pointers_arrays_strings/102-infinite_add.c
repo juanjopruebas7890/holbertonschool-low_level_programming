@@ -36,14 +36,16 @@ char *infinite_add(char *n1, char *n2, char *r, int size_r)
 		else
 			c = 0;
 		r[k++] = (a + '0');
-		m = k;
-		k = k - 1;
-		for (l = 0; l < k; l++, k--)
-		{
-			a = r[k];
-			r[k] = r[l];
-			r[l] = a;
-		}
+	}
+	if (c == 1)
+		r[k++] = (s + '0');
+	m = k;
+	k = k - 1;
+	for (l = 0; l < k; l++, k--)
+	{
+		a = r[k];
+		r[k] = r[l];
+		r[l] = a;
 	}
 	r[m] = '\0';
 	return (r);
