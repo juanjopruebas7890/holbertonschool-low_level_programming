@@ -9,7 +9,7 @@
  */
 char *infinite_add(char *n1, char *n2, char *r, int size_r)
 {
-	int a, i, j, k, l, m, s, c, d1, d2;
+	int a = 0, i, j, k, l, m, s, c, d1, d2;
 
 	i = l = j = k = c = 0;
 	while (n1[i] != '\0')
