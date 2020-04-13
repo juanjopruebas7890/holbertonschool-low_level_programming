@@ -9,11 +9,14 @@ int main(void)
 	int i, j, r, w;
 
 	for (i = '0'; i <= '9'; i++)
+	{
 		for (j = '0'; j <= '9'; j++)
-			for (r = i; r <= '9'; r++)
-				for (w = j; w <= '9'; w++)
+		{
+			for (r = '0'; r <= '9'; r++)
+			{
+				for (w = '0'; w <= '9'; w++)
 				{
-					if (!((j == w) && (i == r)))
+					if (i < j || (j == r && j < w))
 					{
 						putchar(i);
 						putchar(j);
@@ -21,13 +24,16 @@ int main(void)
 						putchar(r);
 						putchar(w);
 
-						if (!(i == '9' && j == '8'))
+						if (!(i == '9' && j == '8' && r == '9' && w == '9'))
 						{
 							putchar(',');
 							putchar(' ');
 						}
 					}
 				}
+			}
+		}
+	}
 	putchar('\n');
 	return (0);
 }
