@@ -1,7 +1,8 @@
-#include <stdio.h>
+#include "lists.h"
 /**
- * words -  will print the string
+ * words - Will print.
  */
+void words(void)__attribute__((constructor));
 void words(void)
 {
 	printf("You're beat! and yet, you must allow,\n");
