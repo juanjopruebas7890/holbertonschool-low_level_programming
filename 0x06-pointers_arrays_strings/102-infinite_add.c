@@ -1,52 +1,88 @@
 #include "holberton.h"
+#include <stdio.h>
+
+int _strlen(char *s);
+char *_cpystr(char *dest, char *src);
+
 /**
- * infinite_add - Will add two numbers
- * @n1: variable
- * @n2: variable
- * @r: variable
- * @size_r: variable
- * Return: 0
+ * infinite_add - add two numbers
+ * @n1: number
+ * @n2: number
+ * @r: buffer used to store result
+ * @size_r: buffer size
+ *
+ * Return: pointer to string on Success, 0 on buffer overflow
  */
 char *infinite_add(char *n1, char *n2, char *r, int size_r)
 {
-	int a = 0, i, j, k, l, m, s, c, d1, d2;
+	int sum = 0, carry = 0;
+	int b_cnt, i;
+	int len1 = (_strlen(n1) - 1);
+	int len2 = (_strlen(n2) - 1);
 
-	i = l = j = k = c = 0;
-	while (n1[i] != '\0')
-		i++;
-	while (n2[j] != '\0')
-		j++;
-	if (i + 2 > size_r || j + 2 > size_r)
-		return (0);
-	i = i - 1;
-	j = j - 1;
-	while (i >= 0 || j >= 0)
+	char buffer[1024];
+
+
+	for (i = size_r, b_cnt = 0; i >= 0; i--, b_cnt++)
 	{
-		d1 = d2 = 0;
-		if (i >= 0)
-			d1 = n1[i--] - '0';
-		if (j >= 0)
-			d2 = n2[j--] - '0';
-		s = d1 + d2 + c;
-		if (s > 9)
-		{
-			c = 1;
-			s = s - 10;
-		}
+
+		if (len1 >= 0 && len2 >= 0)
+			sum = (n1[len1--] - '0') + (n2[len2--] - '0');
+		else if (len1 >= 0)
+			sum = n1[len1--] - '0';
+		else if (len2 >= 0)
+			sum = n2[len2--] - '0';
 		else
-			c = 0;
-		r[k++] = (a + '0');
+			sum = 0;
+
+		buffer[b_cnt] = ((sum + carry) % 10) + '0';
+
+		carry = (sum + carry) / 10;
+
+		if (len1 < 0 && len2 < 0 && carry == 0)
+		{
+			buffer[b_cnt + 1] = '\0';
+			break;
+		}
 	}
-	if (c == 1)
-		r[k++] = (1 + '0');
-	m = k;
-	k = k - 1;
-	for (l = 0; l < k; l++, k--)
-	{
-		a = r[k];
-		r[k] = r[l];
-		r[l] = a;
-	}
-	r[m] = '\0';
-	return (r);
+
+	if (size_r < _strlen(buffer) + 1)
+		return (0);
+
+	return (_cpystr(r, buffer));
+}
+
+/**
+ * _strlen - get length of string
+ * @s: string to count
+ *
+ * Return: length
+ */
+int _strlen(char *s)
+{
+	int i = 0;
+
+	while (s[i])
+		i++;
+	return (i);
+}
+
+/**
+ * _cpystr - copy strings
+ * @dest: string to copy to
+ * @src: string to copy
+ *
+ * Return: copied string
+ */
+char *_cpystr(char *dest, char *src)
+{
+	int i = 0, j;
+
+	j = _strlen(src) - 1;
+
+	while (j >= 0)
+		dest[i++] = src[j--];
+	dest[i] = '\0';
+
+	return (dest);
 }
