@@ -6,35 +6,28 @@
  */
 listint_t *find_listint_loop(listint_t *head)
 {
-	listint_t *c = head, *i;
+	listint_t *i, *c;
 
-	if (c == NULL)
+	for (; head; head = head->next)
 	{
-		return (0);
-	}
-
-	if (c == c->next)
-	{
-		return (c);
-	}
-
-	while (c != NULL)
-	{
-		i = head;
-		c = c->next;
-		while (i != c && c != NULL)
+		for (i = head->next, c = head->next->next; i && c;)
 		{
+			if (i == head || c == head)
+			{
+				return (head);
+			}
+			if (i == c)
+			{
+				break;
+			}
+			if (!i->next || !c->next->next)
+			{
+				return (NULL);
+			}
+
 			i = i->next;
-			if (c->next == c)
-			{
-				return (c);
-			}
-			if (c->next == i)
-			{
-				return (i);
-			}
+			c = c->next->next;
 		}
 	}
-	return (c);
+	return (NULL);
 }
-
