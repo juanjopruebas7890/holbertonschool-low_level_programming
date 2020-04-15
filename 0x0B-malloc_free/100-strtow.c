@@ -1,116 +1,100 @@
 #include "holberton.h"
+#include <stdio.h>
+#include <stdlib.h>
+
+char **_cpy_strtow(char **words, char *str, int word_cnt);
+
 /**
- *strtow - splits a string into words
- *@str: string to split
+ * count_words - count words in string
+ * @str: string to count
  *
- *Return: pointer to an array of strings
+ * Return: number of words in string
+ */
+int count_words(char *str)
+{
+	int i, word_cnt = 0;
+
+	/* loop through string, count words */
+	for (i = 0; str[i] != '\0'; i++)
+		if ((i == 0 && str[i] != ' ') || (str[i - 1] == ' ' && str[i] != ' '))
+			word_cnt++;
+	return (word_cnt);
+}
+
+/**
+ * strtow - split string into words
+ * @str: string to split
+ *
+ * Return: pointer to array of seperated words, NULL on Fail
  */
 char **strtow(char *str)
 {
-	int i = 0, wcount = 0, aindex = 0;
-	int letters, startofword;
-	char **array;
+	char **words;
+	int i, row, str_cnt, word_cnt = count_words(str);
 
-	if (str == NULL || *str == '\0')
+	/* cover error cases */
+	if (str == NULL || *str == '\0' || word_cnt == 0)
 		return (NULL);
 
-	wcount = wordcount(str);
-	if (wcount == 0)
-		return (NULL);
-	array = malloc(sizeof(char *) * (wcount + 1));
-	if (array == NULL)
+	/* allocate word memory, plus null pointer */
+	words = malloc(sizeof(char *) * (word_cnt + 1));
+	if (words == NULL)
 		return (NULL);
 
-	while (*(str + i) != '\0')
-	{
-		if (*(str + i) == ' ' || *(str + i) == '\t')
-			i++;
-		else
-		{
-			startofword = i;
-			letters = lettercount(startofword, str);
-			array[aindex] = malloc(sizeof(char) * (letters + 1));
-			if (array[aindex] == NULL)
+	/* allocate letter memory */
+	for (row = 0, str_cnt = 0; row < word_cnt; row++)
+		for (; str[str_cnt] != '\0'; str_cnt++)
+			if (str[str_cnt] != ' ')
 			{
-				while (aindex >= 0)
+				/* take word length */
+				for (i = 0; str[str_cnt + i] != ' ' && str[str_cnt + i] != '\0'; i++)
+					;
+
+				/* allocate for word, plus null-byte */
+				*(words + row) = malloc(sizeof(char) * (i + 1));
+
+				/* check for fail */
+				if (*(words + row) == NULL)
 				{
-					free(array[aindex]);
-					aindex--;
+					for (; row > 0; row--)
+						/* free previously allocated rows */
+						free(*(words + (row - 1)));
+					free(words);
+					return (NULL);
 				}
-				free(array);
-				return (NULL);
+
+				/* increase str_cnt past newly malloc'ed word */
+				str_cnt += i;
+				/* once word is allocated break str loop to increment row */
+				break;
 			}
-			i = fillarray(startofword, str, array[aindex]);
-			aindex++;
-		}
-	}
-	array[aindex] = NULL;
-	return (array);
+	return (_cpy_strtow(words, str, word_cnt));
 }
 
 /**
- *wordcount - counts the number of words in the string
- *@str: string to count over
+ * _cpy_strtow - copy words from string to 2D array
+ * @words: 2D array of words
+ * @str: string to parse
+ * @word_cnt: number of words in str / number of rows in words
  *
- *Return: the number of words
+ * Return: pointer to array of copied words
  */
-int wordcount(char *str)
+char **_cpy_strtow(char **words, char *str, int word_cnt)
 {
-	int i = 0;
-	int wcount = 0;
+	int i, row, str_cnt;
 
-	while (*(str + i) != '\0')
-	{
-		if (*(str + i) == ' ' || *(str + i) == '\t')
-			i++;
+	for (row = 0, str_cnt = 0; row < word_cnt; row++)
+		for (; str[str_cnt] != '\0'; str_cnt++)
+			if (str[str_cnt] != ' ')
+			{
+				/* copy words from str */
+				for (i = 0; str[str_cnt + i] != ' ' && str[str_cnt + i] != '\0'; i++)
+					words[row][i] = str[str_cnt + i];
+				words[row][i] = '\0';
 
-		else
-		{
-			wcount++;
-			while (*(str + i) != ' ' && *(str + i) != '\t')
-				i++;
-		}
-	}
-	return (wcount);
-}
-
-/**
- *lettercount - allocates memory and adds string to it
- *@i: index where the word in the string begins
- *@str: string of interest
- *
- *Return: the position of string right after the word
- */
-int lettercount(int i, char *str)
-{
-	int letters = 0;
-
-	while (*(str + i) != ' ' && *(str + i) != '\t')
-	{
-		letters++;
-		i++;
-	}
-	return (letters);
-}
-
-/**
- *fillarray - fills the array with a word
- *@i: the index where the word starts
- *@str: the string to separate
- *@array: the array to write to
- *
- *Return: location where the word ends
- */
-int fillarray(int i, char *str, char *array)
-{
-	int counter = 0;
-
-	while (*(str + i) != ' ' && *(str + i) != '\t')
-	{
-		*(array + counter) = *(str + i);
-		i++;
-		counter++;
-	}
-	*(array + counter) = '\0';
-	return (i);
+				/* increase str_cnt past copied word */
+				str_cnt += i;
+				break;
+			}
+	return (words);
 }
