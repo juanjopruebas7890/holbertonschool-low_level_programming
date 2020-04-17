@@ -1,49 +1,83 @@
 #include "holberton.h"
+void copy_contents(int, char *, int, char *);
 /**
- * main - Will copy the content of a file.
- * @ac: Variable.
- * @av: Variable
- * Return: 0.
+ * main - will copy the content
+ * @argc: number of args
+ * @argv: argument(s)
+ *
+ * Return: 0 on Success, -1 or exit on Failure
  */
-int main(int ac, char *av[])
+int main(int argc, char **argv)
 {
-	int i, j, c1, c2;
-	ssize_t rd, wr;
-	char buf[1024];
+	int i, t, c;
 
-	if (ac != 3)
-		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n"), exit(97);
-	i = open(av[2], O_WRONLY | O_CREAT | O_TRUNC, 0664);
-	j = open(av[1], O_RDONLY);
-	if (i == -1 || j == -1)
+	if (argc != 3)
 	{
-		if (i == -1)
-			dprintf(STDERR_FILENO, "Error: Can't write to %s\n",
-				av[2]), exit(99);
-		if (j == -1)
-			dprintf(STDERR_FILENO, "Error: Can't write to %s\n",
-				av[1]), exit(98);
+		dprintf(STDERR_FILENO, "Usage: cp file_from file_to\n");
+		exit(97);
 	}
-	while ((rd = read(j, buf, 1024)) != 0)
+	i = open(argv[1], O_RDONLY);
+	if (i == -1)
 	{
-		if (rd == -1)
-			dprintf(STDERR_FILENO, "Error: Can't read from file %s\n",
-				av[1]), exit(98);
-		wr = write(i, buf, rd);
-		if (wr == -1)
-			dprintf(STDERR_FILENO, "Error: Can't write to %s\n",
-				av[2]), exit(99);
+		dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", argv[1]);
+		exit(98);
 	}
-	c1 = close(i);
-	c2 = close(j);
-	if (c1 == -1 || c2 == -1)
+	t = open(argv[2], (O_WRONLY | O_TRUNC | O_CREAT), 00664);
+	if (t == -1)
 	{
-		if (c1 == -1)
+		c = close(i);
+		if (c == -1)
+		{
 			dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", i);
-		if (c2 == -1)
-			dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", j);
+			exit(100);
+		}
+		dprintf(STDERR_FILENO, "Error: Can't write to %s\n", argv[2]);
+		exit(99);
+	}
+	copy_contents(t, argv[2], i, argv[1]);
+
+	c = close(i);
+	if (c == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", i);
+		exit(100);
+	}
+	c = close(t);
+	if (c == -1)
+	{
+		dprintf(STDERR_FILENO, "Error: Can't close fd %d\n", i);
 		exit(100);
 	}
 	return (0);
 }
+/**
+ * copy_contents - Will copy to read and write
+ * @f2: file to read from
+ * @filename2: filename
+ * @f1: file to write to
+ * @filename1: filename
+ */
+void copy_contents(int f2, char *filename2, int f1, char *filename1)
+{
+	int wr, rd = 1;
+	char buf[1024];
 
+	while (rd)
+	{
+		rd = read(f1, buf, sizeof(buf));
+		if (rd == -1)
+		{
+			dprintf(STDERR_FILENO, "Error: Can't read from file %s\n", filename1);
+			exit(98);
+		}
+		if (!rd)
+			break;
+
+		wr = write(f2, buf, rd);
+		if (wr == -1)
+		{
+			dprintf(STDERR_FILENO, "Error: Can't write to %s\n", filename2);
+			exit(99);
+		}
+	}
+}
