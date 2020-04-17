@@ -1,94 +1,94 @@
 #include "holberton.h"
-/**
- * _strlen - Will give the lenght of a string.
- * @c: value to size.
- * Return: 0.
- */
-int _strlen(char *c)
-{
-	int i;
 
-	for (i = 0; c[i] != 0; i++)
-		;
-	return (i);
-}
 /**
- * _isdigit - Will chaeck for the digits
- * @c: Digit to check
+ * is_digit - will check if is a string
+ * @s: variable
  * Return: 0
  */
-int _isdigit(char *c)
+int is_digit(char *s)
 {
-	int t;
+	int t = 0;
 
-	for (t = 0; c[t]; t++)
+	while (s[t])
 	{
-		if (!(c[t] >= '0' && c[t] <= '9'))
-		{
-			return (1);
-		}
+		if (s[t] < '0' || s[t] > '9')
+			return (0);
+		t++;
 	}
-	return (0);
+	return (1);
 }
+
 /**
- * check_zero - Will look for a 0.
- * @c: variable
+ * _strlen - Will give the lenght of a string
+ * @s: variable
  * Return: 0
  */
-int check_zero(char *c)
+int _strlen(char *s)
 {
-	if (c[0] == 0 && c[1] == 0 && c[1] == 1)
+	int q = 0;
+
+	while (s[q] != '\0')
 	{
-		return (1);
+		q++;
 	}
-	return (0);
+	return (q);
 }
+
 /**
- * main - Will multiply two numbers.
+ * errors - handles errors
+ */
+void errors(void)
+{
+	printf("Error\n");
+	exit(98);
+}
+
+/**
+ * main - multiplies two positive numbers
  * @argc: variable
  * @argv: variable
- * Return: 0.
+ * Return: 0
  */
-int main(int argc, char **argv)
+int main(int argc, char *argv[])
 {
-	int r, i, j, c, t, s1, s2, m;
-	char er[6] = "Error", *res;
+	char *s1, *s2;
+	int len1, len2, len, i, carry, digit1, digit2, *result, a = 0;
 
-	if (argc != 3 || _isdigit(argv[1]) == 1 || _isdigit(argv[2]) == 1)
-	{
-		for (r = 0; er[r] != '\0'; r++)
-			_putchar(er[r]);
-		_putchar('\n');
-		exit(98);
-	}
-	s1 = _strlen(argv[1]), s2 = _strlen(argv[2]);
-	t = s1 + s2;
-	res = malloc(sizeof(int *) * (s1 + s2));
-	if (res == NULL)
+	s1 = argv[1], s2 = argv[2];
+	if (argc != 3 || !is_digit(s1) || !is_digit(s2))
+		errors();
+	len1 = _strlen(s1);
+	len2 = _strlen(s2);
+	len = len1 + len2 + 1;
+	result = malloc(sizeof(int) * len);
+	if (!result)
 		return (1);
-	for (i = s2 - 1; i >= 0; i--)
+	for (i = 0; i <= len1 + len2; i++)
+		result[i] = 0;
+	for (len1 = len1 - 1; len1 >= 0; len1--)
 	{
-		c = 0;
-		for (j = s1 - 1; j >= 0; j--)
+		digit1 = s1[len1] - '0';
+		carry = 0;
+		for (len2 = _strlen(s2) - 1; len2 >= 0; len2--)
 		{
-			m = (argv[2][i] - '0') * (argv[1][j] - '0');
-			c = (m / 10);
-			res[(i + j) + 1] += (m % 10);
-			if (res[(i + j) + 1] > 9)
-			{
-				res[i + j] += res[(i + j) + 1] / 10;
-				res[(i + j) + 1] = res[(i + j)  + 1] % 10;
-			}
-			res[i + j] += c;
+			digit2 = s2[len2] - '0';
+			carry += result[len1 + len2 + 1] + (digit1 * digit2);
+			result[len1 + len2 + 1] = carry % 10;
+			carry /= 10;
 		}
+		if (carry > 0)
+			result[len1 + len2 + 1] += carry;
 	}
-	i = res[0] == 0 ? 1 : 0;
-	if (check_zero(res) == 1)
+	for (i = 0; i < len - 1; i++)
+	{
+		if (result[i])
+			a = 1;
+		if (a)
+			_putchar(result[i] + '0');
+	}
+	if (!a)
 		_putchar('0');
-	else
-		for (; i < t; i++)
-			_putchar(res[i] + '0');
 	_putchar('\n');
-	free(res);
+	free(result);
 	return (0);
 }
