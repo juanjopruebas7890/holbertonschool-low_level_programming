@@ -1,7 +1,7 @@
 #include "lists.h"
 
 /**
- * add_dnodeint_end - Will add a node at the begginging of the list.
+ * add_dnodeint_end - Will add a node at the end of the list.
  * @head: variable.
  * @n: Variable.
  * Return: 0
@@ -27,5 +27,7 @@ dlistint_t *add_dnodeint_end(dlistint_t **head, const int n)
 	{
 		p = p->next;
 	}
+	p->next = c;
+	c->prev = p;
 	return (c);
 }
