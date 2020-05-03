@@ -39,5 +39,6 @@ int delete_dnodeint_at_index(dlistint_t **head, unsigned int index)
 			c = c->next;
 		}
 	}
+	free(c);
 	return (-1);
 }
