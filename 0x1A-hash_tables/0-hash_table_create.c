@@ -1,7 +1,7 @@
 #include "hash_tables.h"
 
 /**
- *hash_table_create - Will create a hash table
+ *hash_table_create - Will create a hash table.
  *@size: variable - size of the array
  *Return: 0
  */
