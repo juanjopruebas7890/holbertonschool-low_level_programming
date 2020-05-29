@@ -9,13 +9,14 @@
  */
 int hash_table_set(hash_table_t *ht, const char *key, const char *value)
 {
-	unsigned int i = 0;
+	unsigned long int i = 0;
 	hash_node_t *tmp;
 
 	if (ht == NULL || key == NULL || value == NULL)
 	{
 		return (0);
 	}
+	
 	i = key_index((const unsigned char *)key, ht->size);
 	if (ht->array[i] != NULL && strcmp(ht->array[i]->key, key) == 0)
 	{
