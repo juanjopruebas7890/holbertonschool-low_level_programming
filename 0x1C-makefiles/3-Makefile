@@ -16,6 +16,6 @@ clean:
 oclean:
 	$(RM) $(OBJ)
 
-fclean: Clean oclean
+fclean: clean oclean
 
 re: ocean all
