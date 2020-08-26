@@ -9,17 +9,16 @@
  */
 void print_array(int *array, int min, int max)
 {
-	{
-		int t;
+	int t;
 
-		for (t = min; t < max; t++)
-		{
-			printf("%d, ", array[t]);
-		}
-		printf("%d", array[t]);
+	for (t = min; t < max; t++)
+	{
+		printf("%d, ", array[t]);
 	}
+	printf("%d", array[t]);
 	putchar('\n');
 }
+
 
 /**
  * binary_search - will search for a value using binary search
@@ -37,7 +36,6 @@ int binary_search(int *array, size_t size, int value)
 		return (-1);
 	}
 
-	min = 0, max = size - 1;
 	while (min <= max)
 	{
 		printf("Searching in array: ");
@@ -53,7 +51,7 @@ int binary_search(int *array, size_t size, int value)
 		}
 		else
 		{
-			max = mid + 1;
+			max = mid - 1;
 		}
 	}
 	return (-1);
